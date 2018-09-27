@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(209, 8, 8);
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #f1f1f1;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f5a9a9;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color: green;
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<div class="sidenav">
+<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMsAAABkCAMAAAAfbzQ6AAAAulBMVEUAAADHDQH///8eHh54eHjrqqXOKR+WlpaZmZkPDw/+/PwzMzNLS0vh4eESEhL77u1mZmbLHhNaWlr99vbljYf11NLvuLQtLS3XVEzMJBn55eQYGBjmk40kJCRycnLMzMzhfHb33dvbYlvUQzrSOzHecWryxsM5OTlCQkLz8/PpoZzZXVXQMijjhX9RUVHwvrqxsbHSPTTfdnDVSUClpaXYV0+9vb2BgYHda2SKiorqpJ/Dw8Pn5+fY2NjqzUrsAAAJN0lEQVR4nO2cCXOiShCAYVAD6iKHt3grHlETo1k1m/z/v/V6ZpgLyFYtZutBartqNYxo9cf0DbUa+j6i/d8KfKEAi6H9bSmhsv63pfKP5R/LP5ZUac6+DUsZnfRp9zuwuE/I17vIX3wDlhChNmwNahWf5QmS4kz34VW1sgKyBACBTQzh3Sk2yyOF2OK3qltoll4DQyx18oauhWYpE4bKnNaSipEVjeVEEFr6hLI0iszyRBACvR0V+XKKKRjLkRK8kohMHaewLNRbkHtkzddbYVkq1chdloxFTv3FYpmwzdgylmphWUIK8KK3eIe/KyiLS00M6n2fs0h9TKFYXiP93YqYvOwLyhJQ9fu0sKQi/WxxWCosUaKQxQB6UECWV13vU/W3bIPoJhWQ5cXVq8xFyoKlqvdYKCsOS9BjHn9lsZlIRW8WjqW8YIVLV59KLCed5f7isISnU6T9MWrEqDzy4VJxWKZXFokrzHGILPWwXDSWxp6xuK6EApEg9N2CsVTfmI3pCksAaWdWLBYXhUcWhSsyyxv0mO2isfg7qnxDZWkDi18sFlB0/ikLNbIisVwbEUtPZglxmVYuGku5FbG4KksYzZYKwwL6N2gZBs4hs7RIk3nKMYvrntQhPt6LaCgWZ8HlczPHLMFkj8KevIKtK8qVUouMWXxE5zE5ZXH98hUUlMf4Qv+KUlu2aFTr5ZZliVo4y8swQv+5UvOHNFTPcssSoga53E/yEpNHuRdDT3TuF+SVBQ+PXGJUE74m9H+Re2RU3kZuk1OWGSh3JNlE3CsW+jfl2QUKaNapujllwXpf6fWesjU+QoZfepVZovduTlnw8Ci4Uh3ZMO/EtQ/1nez7iJ2XTxac/Z4ihf1ozCIKF0j8cmMZSTunLNjtG6yrZ/ck+1xtNcFE0s8pC1Fu98Q9gYgIZF1+i08W9z6WdeqqtXacQ+duluU+UrKlk1vfInhNlEDG5KSwfCD0/myal8t4PB7dTPMZ3m+wPjRNc4PQh2k+qEpvakmSztlcD7SOZzpw4GVjIe5Q5t5+nW91fq8SfyIFAiEvCsuPzQNRro6ipcFo8xwp8wMhFQTkkFzSbpsD+xSuB//8z31fOAy4QhvSupiKTfmdGFm2Cst7pAZngQv76zcsP9HGii09o5LYoQ3KyELj7IJ7yPKIaxThMD3pxhiXUGFhekss2s/PWQZwcZw4yod0VM/KQtNkc8bU7EPGmej8EArJLUpIX2ExU1jOn7OM3hH6paw4CI0UtEwsbpTjWy6v8/HM8lGU/VuJS8hOZrmlsDBtUlgeLnDeUFqwNuqxts62L6do0LLjVoWbR//ID/upDnOSWCx2TWUWZv5JltpoCD94k1ZGCP1QTrGysewjd9iLe3mvTSAQJdlCaWHY5qXlF5mFSZLlZoPzo3dpBWL6s3oO/5U/Ynld0vwxFfk9xBXNlBvZRG8mWfbZWcC7PDjxwBdslBLrsrDo0wU1oZPIiTslcoX6IsnylpnlcKAOInbiAF8raenyh3EsoK5RFt4fKBsB3UofxaWdmcXEqcWEn+VnQhSLx+iMLEf0QlWuCHfvKnovld4y2qysLDY5WslbUfoyFn06pdVjsODx6qrqrc8TLNOsLA6tK8HdeXb8QpYlapOKpeHyjWn6iuIpdb+flSVyEwjDiFXLHvoqf8G1V/QE345tTKuhKD7R9ygpmViGvxwieC9YaWAgNd1ometkHUKuT/bBr7xFasaS45Q9THY/y6VeowIpZmNHi+N4fjEy1mO63vMj7YOdn1QZy4k9UnI3y1k+l9ULI6SUlplrGLoxkRPsUrIiljJ96vp+lrXwcSgwx9Gf1nvsew/ZWVzmHm03pbnHkL2UFJOFxRR9Cy4wWXu5rqKL9B1jk51FtMGzbkJlIs2UTjkDi2WKD4ZI+sQRzqPhXu0OFh5z+27apALHazfhShlYRp70CfZ+vk3ehjVvmvV8/riHhW/HtteI60xkksz9f85S25ylMQtOK8J9hs9janHeZah17mHRWTRGr+lW1ifR7jcslmma5/F4fDZNnvcMSCQPpnmBNzhyTCJUfc9kwuvlzqV0cUY3QpQ5v2BxmW83KsniC0uyKMvhrC8SPjkK3ZRZBWkvYxuTXxZRpgSVVJdJtGQ5ZhGz1uUxLf0nQlmCRRk/aBauVGxNldVKWekc8My146zEklH3ap6Y0WZk4bZV7c7SNqYZqzBjvl9aabWSXLobyNKcsYxbg6JlpQyPziRgKeNl5wNPClmwzsYy7+2YbTUWaXWxv3Mbn7P8qsOLHWfRxlIxP/iBNTzL51AWZR6OWTQ+kM24L83dgg9id2kwbel+WZylXqW7o7DYmvEuTcFLpP4ayWXkJyzGho+mMtpYeJJgUqf7yjhWYRnJMyLG4pV+yuZjktTuVX/P4n101iPuelmfh1k0lkcBs0yyTN3TZyyOrCFjMSDTD+L74shjPcqi3MHwlPI/87M9S7Tl46T+IgUmkGfLCstgAxd3+DCWLjFm0apiDKbZ78Rf5JrsgfQzUhj7MhaoZKZdFpr90yzRTFbnbj+dRVufQdFnOUgRlrG8gmNYTensOzhkKHHaKH3I23THM1chXPsgSiP+9TGRZ6bSLfJYfrHqNUUpa+XAse0pd1pqxkBTZVhLuUf2JSxqLxbME61ZU1hZnvM+kZ2SQlqLeDtTXXDc3LPoCwWm8TiJ2dnUZRWOwmIMLVurdeyhDVZj46RpOeDTlrMyNAt7O7YkRwMjHEB4sPA/D7KRXVtbYI3g/CULAvEBagcHPGjEDe++ZxSPamUZnGKdfpm1ywqL5cHfK8ex8N2YErn90rkY+J0e2LifX40M+ANSjg0rxqFuwQucTsJDSYPv1jvg+5BbRof7ahixM6ryrVPMzpZRFaraGGbRbjcL7wdV31qPBItRhyttHTxtgPuswQgwNNgIwxuutYM9tCjLClg8a6CJMufeZ0d76r0jvzlTQoC/oFWoykIeMuhg0zAMG4pkXM/AFa7ZFrEvG78M4M02AHcAJ4I1whlrnOGH8FK3wdAsONmGF/vLWHTl+TeQ/mwve83UrfQL4ftU4jO/tmJobf2YOhvPJ4vejXk8GJpkeQGeYxaGRXfjd/Ub+64YKi/z+ZzSp7KI3z5uvMyZI/mzb/d/qX0b+Q/xi8zKy1DtVQAAAABJRU5ErkJggg==' />
+  <a [routerLink]="['../dashboard']">Home</a>
+  <a [routerLink]="['../absence']" *ngIf="admin">New absence</a>
+  <a>New contract</a>
+  <a [routerLink]="['../userReport']">User report</a>
+  <a [routerLink]="['../admin']" *ngIf="admin">View absences</a>
+  <a [routerLink]="['../password-change']" *ngIf="admin">Change password</a>
+  <a [routerLink]="['../view-contracts']" *ngIf="admin">View contracts</a>
+</div>
+
+<div style="float:right; padding-top: 5pt; padding-right: 40pt; font-size: 20pt; color:white">
+    <form align="right" name="form1" method="post" (click)="logout()">
+        <a class="btn btn-danger">
+            <span class="glyphicon glyphicon-log-out"></span> Log out
+          </a>
+    </form>
+</div>
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                        <h1>Create new contract for user: </h1>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="project-form"  method="post" role="form" style="display: block;">
+                                    <div class="form-group">
+                                        <select id="USERNAME_ACC" name="USERNAME_ACC" style="height: 25pt"
+                                            [(ngModel)]="USERNAME_ACC" 
+                                            [(ngModel)]="data1.USERNAME_ACC" class="form-control">
+                                            <option disabled selected value> -- select an user -- </option>
+                                        <option *ngFor="let uname of list" [value]="uname.ACCOUNT_ID">
+                                            {{uname.USERNAME_ACC}}
+                                        </option>
+                                    </select> 
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="number" name="NORM_FOR_MONTH" id="NORM_FOR_MONTH" [(ngModel)]="data1.NORM_FOR_MONTH"  tabindex="2" class="form-control" placeholder="Norm for month" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="number" name="COEF" id="COEF" [(ngModel)]="data1.COEF" tabindex="2" class="form-control" placeholder="Coeficient for salary" required>
+                                    </div> 
+                                    <div class="form-group">
+                                      <input type="number" name="DAYS_FOR_VACATION" id="DAYS_FOR_VACATION" [(ngModel)]="data1.DAYS_FOR_VACATION"  tabindex="2" class="form-control" placeholder="Days for vacation" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="duration">Enter contract start date: .</label>
+                                      <input type="date" id="VALID_FROM" name="VALID_FROM"
+                                             [(ngModel)] = "data1.VALID_FROM"
+                                             placeholder="Valid from"
+                                             tabindex="1" min="2000-01-01" max="2222-12-31" />
+                                    </div> <br>
+                                    <div class="form-group" class="text-center">
+                                        <div class="d-inline-block">
+                                            <div class="btn-toolbar" style="display: block;" >
+                                                <button type="submit" class="btn btn-danger" (click)="addContract()">Submit</button>
+                                                <button type="reset" class="btn btn-danger">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html> 
+
